@@ -1,0 +1,232 @@
+public class Runner {
+
+    public static void main(String[] args) {
+        //Warmup-1
+        System.out.println(front22("kitten"));
+        System.out.println(front22("orpheus"));
+        System.out.println(front22("u"));
+        System.out.println(front22("in"));
+
+        //Warmup-2
+        System.out.println(arrayFront9([9,8,7,6,5]));
+        System.out.println(arrayFront9([0,1,5,4,3,2,2,9]));
+        System.out.println(arrayFront9([3,4,9,6]));
+        System.out.println(arrayFront9([9,9,2,3,7]));
+
+        //String-1
+        System.out.println(withouEnd2("u"));
+        System.out.println(withouEnd2("Hello"));
+        System.out.println(withouEnd2("abcde"));
+        System.out.println(withouEnd2("up"));
+        System.out.println(withouEnd2("down"));
+
+        //Array-1
+        System.out.println(unlucky1([3,1,9,6]));
+        System.out.println(unlucky1([1,3,4]));
+        System.out.println(unlucky1([0,6,1,3]));
+        System.out.println(unlucky1([9,8,1,3,4]));
+        System.out.println(unlucky1([1]));
+
+        //Logic-1
+        System.out.println(alarmClock([5, false]));
+        System.out.println(alarmClock([6, true]));
+        System.out.println(alarmClock([2, false]));
+        System.out.println(alarmClock([5, true]));
+        System.out.println(alarmClock([0, true]));
+
+        //Logic-2
+        System.out.println(blackjack(19, 22));
+        System.out.println(blackjack(19, 12));
+        System.out.println(blackjack(29, 22));
+        System.out.println(blackjack(11, 9));
+        System.out.println(blackjack(0, 22));
+
+        //String-2
+        System.out.println(prefixAgain("aaa", 2));
+        System.out.println(prefixAgain("piepie", 2));
+        System.out.println(prefixAgain("pixel", 3));
+        System.out.println(prefixAgain("abcbcdabcb", 4));
+        System.out.println(prefixAgain("abiturabiabiabi", 5));
+
+        //String-3
+        System.out.println(equalIsNot("isnot"));
+        System.out.println(equalIsNot("isnotnot"));
+        System.out.println(equalIsNot("isnotisn"));
+        System.out.println(equalIsNot("isisnotnotisnot"));
+
+        //Array-2
+        System.out.println(has77([7,7,8,7]));
+        System.out.println(has77([7,9,7,8]));
+        System.out.println(has77([7,0,9,7,8,7]));
+        System.out.println(has77([7,0,9,7,8]));
+
+        //Array-3
+        System.out.println(linearIn([7,7,8,9],[7,8]));
+        System.out.println(linearIn([7,7,8,9],[6,7,8,9]));
+        System.out.println(linearIn([1,2,2,2,2,3,4],[1,2,4]));
+        System.out.println(linearIn([1,2,2,2,2,3,4],[1,2,6,7]));
+    }
+
+
+    //Warmup-1
+    //takes the first two charachters of a string and adds them to the front and back;
+    //if the string is less than 2 characters, uses what's there
+    public String front22(String str) {
+        String front;
+        if(str.length() >= 2) {
+            front = str.substring(0,2);
+        } else {
+            front = str.substring(0,str.length());
+        }
+        return (front+str+front);
+    }
+
+    //Warmup-2
+    //if one of the first 4 items is 9, returns true; if not, false
+    public boolean arrayFront9(int[] nums) {
+        for(int i = 0; (i < 4 && i < nums.length); i ++) {
+            if(nums[i] == 9) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //String-1
+    //if the string is longer than two characters, returns strign without the first or last characters;
+    //if not, returns nothing
+    public String withouEnd2(String str) {
+        if(str.length() > 2) {
+            return str.substring(1,(str.length()-1));
+        }
+        return "";
+    }
+
+    //Array-1
+    //if the array contains a 1 with a 3 immediately after, in either the first 2 positions or the last,
+    //returns true; if not, returns false
+    public boolean unlucky1(int[] nums) {
+        if(nums.length >=2) {
+            if(nums[0] == 1 && nums[1] == 3) {
+                return true;
+            }
+            if (nums[1] == 1 && nums[2] == 3) {
+                return true;
+            }
+        }
+
+        if(nums.length >= 3) {
+            if (nums[nums.length-2] == 1 && nums[nums.length-1] == 3){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Logic-1
+    //if we're not on vacation, returns the time of the alarm for weekdays (7) and weekends (10);
+    //if we are, returns the time for weekdays (10) and weekends (off)
+    public String alarmClock(int day, boolean vacation) {
+        if(vacation == false) {
+            if(day <=5 && day > 0) {
+                return "7:00";
+            } else {
+                return "10:00";
+            }
+        } else {
+            if(day <=5 && day > 0) {
+                return "10:00";
+            } else {
+                return "off";
+            }
+        }
+    }
+
+    //Logic-2
+    //blackjack--if both a and b are over 21, returns 0; if not, returns the one closest to 21...
+    //as long as it's still smaller
+    public int blackjack(int a, int b) {
+        if(a <= 21) {
+            if( b > 21 || a > b) {
+                return a;
+            } else {
+                return b;
+            }
+        } else if (b <= 21) {
+            if (a > 21 || b > a) {
+                return b;
+            } else {
+                return a;
+            }
+        }
+        return 0;
+    }
+
+    //String-2
+    //takes prefix to be the string from 0 to position n; if that prefix appears again, returns true
+    public boolean prefixAgain(String str, int n) {
+        String prefix = str.substring(0, n);
+        for (int i = 0; i < str.length()-(n-1); i ++) {
+            if(str.substring(i, i+n).equals(prefix) && i > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //String-3
+    //if the number of times 'is' appears in the string is the same as the number of times 'not' does,
+    //returns true
+    public boolean equalIsNot(String str) {
+        int nCount = 0;
+        int iCount = 0;
+        for(int i = 0; i < str.length()-2; i ++) {
+            if(str.substring(i, i+3).equals("not")){
+                nCount++;
+            }
+        }
+        for( int i = 0; i < str.length()-1; i ++ ) {
+            if(str.substring(i, i+2).equals("is")) {
+                iCount++;
+            }
+        }
+        if(iCount == nCount) {
+            return true;
+        }
+        return false;
+    }
+
+    //Array-2
+    //if a 7 appears immediately after or one space after a 7, returns true
+    public boolean has77(int[] nums) {
+        for(int i = 0; i < nums.length-1; i ++) {
+            if(nums[i] == 7) {
+                if(nums[i+1] == 7) {
+                    return true;
+                }
+                if( i + 2 < nums.length && nums[i+2] == 7) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //Array-3
+    //searches arrays to see if all the things in the second also appear at least once in the first
+    public boolean linearIn(int[] outer, int[] inner) {
+        int count = 0;
+        for (int x = 0; x < inner.length; x ++) {
+            for(int i = 0; i < outer.length; i++) {
+                if(inner[x] == outer[i]){
+                    count++;
+                    break;
+                }
+            }
+        }
+        if(count < inner.length) {
+            return false;
+        }
+        return true;
+    }
+}
